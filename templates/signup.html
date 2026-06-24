@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}회원가입 — 원고지{% endblock %}
+{% block bodyclass %}page-auth{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+  <form class="auth-card" id="signup-form" novalidate>
+    <div class="auth-card-mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40"><rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.6"/><text x="20" y="27" text-anchor="middle" font-family="'Noto Serif KR',serif" font-weight="900" font-size="20" fill="currentColor">씀</text></svg>
+    </div>
+    <h1>회원가입</h1>
+    <p class="auth-sub">원고지에 이름을 올리고 첫 칸을 채워보세요.</p>
+
+    <label class="field">
+      <span>닉네임</span>
+      <input type="text" name="nickname" id="nickname" autocomplete="nickname" required placeholder="필명을 입력하세요" />
+    </label>
+
+    <label class="field">
+      <span>이메일</span>
+      <input type="email" name="email" id="email" autocomplete="email" required placeholder="you@example.com" />
+    </label>
+
+    <label class="field">
+      <span>비밀번호</span>
+      <input type="password" name="password" id="password" autocomplete="new-password" required minlength="6" placeholder="6자 이상" />
+    </label>
+
+    <p class="form-error" id="form-error" role="alert" hidden></p>
+
+    <button type="submit" class="btn btn-primary btn-block" id="submit-btn">회원가입</button>
+
+    <p class="auth-switch">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
+  </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/signup.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,25 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /posts/{postId} {
+      // 누구나 글을 읽을 수 있어요.
+      allow read: if true;
+
+      // 로그인한 사용자만 글을 작성할 수 있고,
+      // 본인 uid로만 글을 등록할 수 있어요.
+      allow create: if request.auth != null
+                    && request.resource.data.authorUid == request.auth.uid
+                    && request.resource.data.title is string
+                    && request.resource.data.title.size() > 0
+                    && request.resource.data.title.size() <= 80
+                    && request.resource.data.content is string
+                    && request.resource.data.content.size() > 0;
+
+      // 작성자 본인만 수정/삭제할 수 있어요.
+      allow update, delete: if request.auth != null
+                             && resource.data.authorUid == request.auth.uid;
+    }
+  }
+}
